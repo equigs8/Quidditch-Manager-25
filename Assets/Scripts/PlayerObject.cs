@@ -8,7 +8,7 @@ public class PlayerObject : ScriptableObject
     public string firstName;
     public string lasteName;
 
-    public Gender gender;
+    public string gender;
     [System.Serializable]
     public enum Gender
     {
