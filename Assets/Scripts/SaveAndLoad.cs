@@ -12,13 +12,8 @@ public class SaveAndLoad : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Player player = new Player();
-        player.SetFirstName("Test");
-        player.SetLastName("Player");
-        player.SetPosition("Keeper");
-        player.SetStats(10,10,10,10,10);
+        playerDataBasePath = Application.persistentDataPath + playerDataBasePath;
 
-        SaveToJSON(player);
     }
 
     // Update is called once per frame
@@ -36,26 +31,30 @@ public class SaveAndLoad : MonoBehaviour
         return false;
     }
 
-    public void SaveToJSON(Player objectToSave)
+
+    public void SaveToJSON(List<Player> playersToSave)
     {
-        string jsonString = JsonUtility.ToJson(objectToSave);
-        System.IO.File.WriteAllText(Application.persistentDataPath + "/PlayerDataBase.json", jsonString);
+        string json = JsonUtility.ToJson(new Wrapper<Player>(playersToSave));
+        File.WriteAllText(playerDataBasePath, json);
     }
 
-
-
-    public void LoadPlayerData()
+    public List<Player> LoadPlayerData()
     {
         if (FilesExist())
         {
+
+
             string json = File.ReadAllText(playerDataBasePath);
-             Players playersInJSON = JsonUtility.FromJson<Players>(json);
-            
-            foreach (Player player in playersInJSON.players)
+            Wrapper<Player> wrapper = JsonUtility.FromJson<Wrapper<Player>>(json);
+            List<Player> playersList = wrapper.items;
+
+            foreach (Player player in playersList)
             {
-                Debug.Log("Found Player, " + player);
+                //Debug.Log("Found Player, " + player.firstName);
             }
+            return playersList;
         }
+        return null;
     }
 
 }

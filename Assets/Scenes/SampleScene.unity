@@ -135,7 +135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &175083766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,8 +150,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamRating: 0
   players: []
-  strategy: 
+  strategy: Attacking
   chaserStrategy: 0
+  startingLineup: []
 --- !u!4 &175083767
 Transform:
   m_ObjectHideFlags: 0
@@ -388,37 +389,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &820797138
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 820797139}
-  m_Layer: 0
-  m_Name: PlayerDataBase
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &820797139
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 820797138}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.6997218, y: -0.22599883, z: -0.012519253}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1201970588
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,8 +398,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1201970589}
+  - component: {fileID: 1201970590}
   m_Layer: 0
-  m_Name: PlayerDatabase
+  m_Name: PlayerDataBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -450,6 +421,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1201970590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201970588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fba86c607bde24aa02b48d9fdc48e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveAndLoadManager: {fileID: 1959396298}
+  playerList: []
 --- !u!1 &1781489465
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,5 +541,4 @@ SceneRoots:
   - {fileID: 175083767}
   - {fileID: 1201970589}
   - {fileID: 1781489467}
-  - {fileID: 820797139}
   - {fileID: 1959396299}

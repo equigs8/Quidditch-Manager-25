@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
 public class Player
 {
     [Header("Bio")]
@@ -25,6 +28,9 @@ public class Player
         Seeker
     }
 
+    public string currentTeam;
+    public List<string> pastTeams = new List<string>();
+
     [Header("Base Stats")]
     public int stamina;
     public int armPower;
@@ -44,11 +50,12 @@ public class Player
         lasteName = name;
     }
 
-    public void SetStats(int newStamina, int newArmPower, int newVision, int newTopSpeed, int newToughness)
+    public void SetStats(int newStamina, int newArmPower, int newVision, int newReactions, int newTopSpeed, int newToughness)
     {
         stamina = newStamina;
         armPower = newArmPower;
         vision = newVision;
+        reactions = newReactions;
         topSpeed = newTopSpeed;
         toughness = newToughness;   
     }
