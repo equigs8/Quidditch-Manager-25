@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Team : MonoBehaviour
+[System.Serializable]
+public class Team
 {
     [Header("Team Info")]
+    public string teamName;
     public int teamRating;
 
     [Header("Players")]
