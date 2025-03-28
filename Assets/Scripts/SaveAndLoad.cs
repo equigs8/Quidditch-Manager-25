@@ -19,6 +19,7 @@ public class SaveAndLoad : MonoBehaviour
 
         
         AddDefaultTeamSaveFile();
+        AddDefaultPlayerSaveFile();
 
     }
 
@@ -55,17 +56,18 @@ public class SaveAndLoad : MonoBehaviour
         player1.firstName = "Ethan";
         player1.lasteName = "Quigley";
         player1.position = Player.Position.Chaser;
+        player1.currentTeam = "England";
 
         Player player2 = new Player();
         player2.firstName = "Will";
         player2.lasteName = "Quigley";
         player2.position = Player.Position.Seeker;
-
+        player2.currentTeam = "England";
         Player player3 = new Player();
         player3.firstName = "Richard";
         player3.lasteName = "Quigley";
         player3.position = Player.Position.Chaser;
-
+        player3.currentTeam = "England";
         playerList.Add(player1);
         playerList.Add(player2);
         playerList.Add(player3);

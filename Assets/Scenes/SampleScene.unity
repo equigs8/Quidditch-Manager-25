@@ -1012,7 +1012,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveAndLoadManager: {fileID: 1959396298}
+  playerDatabase: {fileID: 1201970590}
   teams: []
+  startingLineup: []
 --- !u!4 &2077368983
 Transform:
   m_ObjectHideFlags: 0

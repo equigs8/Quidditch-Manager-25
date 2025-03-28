@@ -28,7 +28,7 @@ public class Player
         Seeker
     }
 
-    public string currentTeam;
+    public string currentTeam = "Free Agent";
     public List<string> pastTeams = new List<string>();
 
     [Header("Base Stats")]
@@ -59,6 +59,12 @@ public class Player
         topSpeed = newTopSpeed;
         toughness = newToughness;   
     }
+
+    internal string GetCurrentTeam()
+    {
+        return currentTeam;
+    }
+
     public void SetPosition(string newPosition)
     {
         positionString = newPosition;

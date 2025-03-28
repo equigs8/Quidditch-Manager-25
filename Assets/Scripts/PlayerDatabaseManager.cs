@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,5 +25,10 @@ public class PlayerDatabaseManager : MonoBehaviour
             }
             Debug.Log("Loaded playerList");
         } 
+    }
+
+    internal List<Player> GetPlayerList()
+    {
+        return playerList;
     }
 }
