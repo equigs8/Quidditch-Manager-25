@@ -29,6 +29,7 @@ public class SaveAndLoad : MonoBehaviour
 
         Team team1 = new Team();
         team1.teamName = "England";
+        team1.isPlayerTeam = true;
         
 
         Team team2 = new Team();

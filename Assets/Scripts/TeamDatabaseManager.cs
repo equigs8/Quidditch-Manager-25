@@ -41,6 +41,19 @@ public class TeamDatabaseManager : MonoBehaviour
         }
     }
 
+    internal Team GetPlayerTeam()
+    {
+
+        foreach (Team team in teams)
+        {
+            if (team.isPlayerTeam)
+            {
+                return team;
+            }
+        }
+        return null;
+    }
+
     private void LoadPlayersIntoTeams()
     {
         Debug.Log("LoadPlayersInToTeams Started");

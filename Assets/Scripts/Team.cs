@@ -11,8 +11,8 @@ public class Team
 
     [Header("Players")]
     public List<Player> players;
+    public bool isPlayerTeam = false;
 
-    
     void Start()
     {
         
