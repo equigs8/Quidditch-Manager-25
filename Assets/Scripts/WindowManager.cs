@@ -11,6 +11,8 @@ public class WindowManager : MonoBehaviour
     public GameObject textContainer;
     public TMP_Text headerText;
     public List<TMP_Text> containerElements;
+    private GameObject[] slotsGameObjects;
+    public Slot[] slots;
     public PlayerCard[] playerCards;
     public PlayerCard selectedPlayerCard;
     public PlayerCard hoveredPlayerCard;
@@ -22,6 +24,9 @@ public class WindowManager : MonoBehaviour
 
         containerElements = new List<TMP_Text>(textContainer.transform.GetChild(1).GetComponentsInChildren<TMP_Text>());
 
+        slots = GameObject.FindGameObjectsWithTag("Slot");
+
+
         playerCards = GetComponentsInChildren<PlayerCard>();
 
         foreach (PlayerCard playerCard in playerCards)
@@ -29,9 +34,14 @@ public class WindowManager : MonoBehaviour
             Debug.Log("Adding Listeners");
             playerCard.BeginDragEvent.AddListener(BeginDrag);
             playerCard.EndDragEvent.AddListener(EndDrag);
-            playerCard.PointerEnterEvent.AddListener(PlayerCardPointerEnter);
-            playerCard.PointerExitEvent.AddListener(PlayerCardPointerExit);
             
+            
+        }
+
+        foreach (Slot slot in slots)
+        {
+            slot.PointerEnterEvent.AddListener(PlayerCardPointerEnter);
+            slot.PointerExitEvent.AddListener(PlayerCardPointerExit);
         }
     
     }
@@ -49,14 +59,14 @@ public class WindowManager : MonoBehaviour
 
     void PlayerCardPointerEnter(PlayerCard playerCard)
     {
-        hoveredPlayerCard = playerCard;
-        playerCard.SetSlotOver(playerCard.gameObject);
+        //hoveredPlayerCard = playerCard;
+        selectedPlayerCard.SetSlotOver(playerCard.gameObject);
     }
 
     void PlayerCardPointerExit(PlayerCard playerCard)
     {
         hoveredPlayerCard = null;
-        playerCard.SetSlotOver(null);
+        selectedPlayerCard.SetSlotOver(null);
     }
 
     // Update is called once per frame

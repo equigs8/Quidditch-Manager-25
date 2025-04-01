@@ -40,7 +40,7 @@ public class PlayerCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
                 transform.position = slotOver.transform.position;
             }else
             {
-                this.transform.SetParent(slotOver.transform);
+                //this.transform.SetParent(slotOver.transform);
                 transform.position = currentSlot.transform.position;
             }
             
