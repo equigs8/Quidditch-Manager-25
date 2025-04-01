@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using System;
 
 public class WindowManager : MonoBehaviour
 {
@@ -9,6 +11,9 @@ public class WindowManager : MonoBehaviour
     public GameObject textContainer;
     public TMP_Text headerText;
     public List<TMP_Text> containerElements;
+    public PlayerCard[] playerCards;
+    public PlayerCard selectedPlayerCard;
+    public PlayerCard hoveredPlayerCard;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,6 +21,42 @@ public class WindowManager : MonoBehaviour
         headerText = textContainer.transform.GetChild(0).GetComponent<TMP_Text>();
 
         containerElements = new List<TMP_Text>(textContainer.transform.GetChild(1).GetComponentsInChildren<TMP_Text>());
+
+        playerCards = GetComponentsInChildren<PlayerCard>();
+
+        foreach (PlayerCard playerCard in playerCards)
+        {
+            Debug.Log("Adding Listeners");
+            playerCard.BeginDragEvent.AddListener(BeginDrag);
+            playerCard.EndDragEvent.AddListener(EndDrag);
+            playerCard.PointerEnterEvent.AddListener(PlayerCardPointerEnter);
+            playerCard.PointerExitEvent.AddListener(PlayerCardPointerExit);
+            
+        }
+    
+    }
+
+    void BeginDrag(PlayerCard playerCard)
+    {
+        selectedPlayerCard = playerCard;
+        Debug.Log("BeginDrag working");
+    }
+
+    void EndDrag(PlayerCard playerCard)
+    {
+        selectedPlayerCard = null;
+    }
+
+    void PlayerCardPointerEnter(PlayerCard playerCard)
+    {
+        hoveredPlayerCard = playerCard;
+        playerCard.SetSlotOver(playerCard.gameObject);
+    }
+
+    void PlayerCardPointerExit(PlayerCard playerCard)
+    {
+        hoveredPlayerCard = null;
+        playerCard.SetSlotOver(null);
     }
 
     // Update is called once per frame
