@@ -23,12 +23,34 @@ public class PlayerCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     [HideInInspector] public UnityEvent<PlayerCard> PointerEnterEvent;
     [HideInInspector] public UnityEvent<PlayerCard> PointerExitEvent;
 
+    public bool isDragging = false;
+    private Vector3 rotationDelta;
+    private Vector3 movementDelta;
+    private float rotationSpeed = 20f;
+    private float rotationAmount = 20f;
+
     //transform.rotation *= new Quaternion(0f, 0f, 1f, MouseVel().x*tiltSpeed);
 
     void Start()
     {
         image = GetComponent<UnityEngine.UI.Image>();
         playerName = GetComponentInChildren<TMP_Text>();
+    }
+
+    void Update()
+    {
+        if (isDragging)
+        {
+            //transform.position = Input.mousePosition;
+            transform.position = Vector3.Lerp(transform.position, Input.mousePosition, 15f * Time.deltaTime);
+            
+            Vector3 movement = transform.position;
+            movementDelta = Vector3.Lerp(movementDelta, movement, 25 * Time.deltaTime);
+            Vector3 movementRotation = movement * rotationAmount;
+            rotationDelta = Vector3.Lerp(rotationDelta, movementRotation, rotationSpeed * Time.deltaTime);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Clamp(rotationDelta.x, -60, 60));  
+        }
+        
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -43,7 +65,7 @@ public class PlayerCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     public void OnDrag(PointerEventData eventData)
     {
         //Debug.Log("Dragging");
-        transform.position = Input.mousePosition;
+        isDragging = true;
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -54,5 +76,6 @@ public class PlayerCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         transform.localPosition = Vector3.zero;
         image.raycastTarget = true;
         playerName.raycastTarget = true;
+        isDragging = false;
     }
 }
