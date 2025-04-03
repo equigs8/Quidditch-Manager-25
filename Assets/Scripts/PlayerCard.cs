@@ -41,16 +41,22 @@ public class PlayerCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         if (isDragging)
         {
-            //transform.position = Input.mousePosition;
+            // 1. Calculate Mouse Delta
+            Vector3 mouseDelta = (Vector3)Input.mousePosition - movementDelta; // 'movementDelta' now stores the previous mouse position
+
+            // 2. Smoothly Move the Card
             transform.position = Vector3.Lerp(transform.position, Input.mousePosition, 15f * Time.deltaTime);
-            
-            Vector3 movement = transform.position;
-            movementDelta = Vector3.Lerp(movementDelta, movement, 25 * Time.deltaTime);
-            Vector3 movementRotation = movement * rotationAmount;
-            rotationDelta = Vector3.Lerp(rotationDelta, movementRotation, rotationSpeed * Time.deltaTime);
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Clamp(rotationDelta.x, -60, 60));  
+
+            // 3. Calculate Rotation from Mouse Delta
+            float rotation = Mathf.Clamp(-mouseDelta.x * rotationAmount, -60, 60); // Negate mouseDelta.x to rotate correctly
+            rotationDelta.z = Mathf.Lerp(rotationDelta.z, rotation, rotationSpeed * Time.deltaTime * 0.1f); // Smooth rotation
+
+            // 4. Apply Rotation
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, rotationDelta.z);
+
+            // 5. Store Current Mouse Position for Next Delta
+            movementDelta = Input.mousePosition;
         }
-        
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -61,6 +67,7 @@ public class PlayerCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         transform.SetAsLastSibling();
         image.raycastTarget = false;
         playerName.raycastTarget = false;
+        movementDelta = Input.mousePosition;
     }
     public void OnDrag(PointerEventData eventData)
     {
@@ -77,5 +84,8 @@ public class PlayerCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         image.raycastTarget = true;
         playerName.raycastTarget = true;
         isDragging = false;
+        //rotationDelta = Vector3.zero; // Reset rotationDelta
+        transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+        //transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, Vector3.zero, rotationSpeed * Time.deltaTime);
     }
 }
