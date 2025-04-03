@@ -7,6 +7,8 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
     
     public UnityEvent<Slot> PointerEnterEvent;
     public UnityEvent<Slot> PointerExitEvent;
+
+    private bool isOccupied;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,15 +18,31 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
     // Update is called once per frame
     void Update()
     {
-        
+        //check if slot is occupied
+        if (gameObject.transform.childCount > 0)
+        {
+            isOccupied = true;
+        }else
+        {
+            isOccupied = false;
+        }
     }
 
     public void OnDrop(PointerEventData eventData)
     {
         Debug.Log("Dropped on " + name + " GameObject");
-        GameObject dropped = eventData.pointerDrag;
-        PlayerCard playerCard = dropped.GetComponent<PlayerCard>();
-        playerCard.parentAfterDrag = transform;
+        
+        if (!isOccupied)
+        {
+            GameObject dropped = eventData.pointerDrag;
+            PlayerCard playerCard = dropped.GetComponent<PlayerCard>();
+            playerCard.parentAfterDrag = transform;
+        }else
+        {
+            //Swap the player cards
+            
+        }
+        
     }
     public void OnPointerEnter(PointerEventData pointerEventData)
     {

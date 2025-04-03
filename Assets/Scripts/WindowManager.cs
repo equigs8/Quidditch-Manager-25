@@ -12,7 +12,6 @@ public class WindowManager : MonoBehaviour
     public TMP_Text headerText;
     public List<TMP_Text> containerElements;
     private GameObject[] slotsGameObjects;
-    public List<Slot> slots = new List<Slot>();
     public PlayerCard[] playerCards;
     public PlayerCard selectedPlayerCard;
     public Slot hoveredPlayerCard;
@@ -25,10 +24,19 @@ public class WindowManager : MonoBehaviour
         containerElements = new List<TMP_Text>(textContainer.transform.GetChild(1).GetComponentsInChildren<TMP_Text>());
 
         slotsGameObjects = GameObject.FindGameObjectsWithTag("Slot");
-
-        foreach(GameObject slot in slotsGameObjects)
+        bool isWhite = true;
+        //alternate the color of the slot image. From white to grey.
+        foreach (GameObject slotGameObject in slotsGameObjects)
         {
-            slots.Add(slot.GetComponent<Slot>());
+            if (isWhite)
+            {
+                slotGameObject.GetComponent<Image>().color = Color.white;
+            }
+            else
+            {
+                slotGameObject.GetComponent<Image>().color = Color.grey;
+            }
+            isWhite = !isWhite;
         }
 
 
@@ -36,17 +44,10 @@ public class WindowManager : MonoBehaviour
 
         foreach (PlayerCard playerCard in playerCards)
         {
-            Debug.Log("Adding Listeners");
+            //Debug.Log("Adding Listeners");
             //playerCard.BeginDragEvent.AddListener(BeginDrag);
             //playerCard.EndDragEvent.AddListener(EndDrag);
             
-            
-        }
-
-        foreach (Slot slot in slots)
-        {
-            //slot.PointerEnterEvent.AddListener(PlayerCardPointerEnter);
-            //slot.PointerExitEvent.AddListener(PlayerCardPointerExit);
         }
     
     }
