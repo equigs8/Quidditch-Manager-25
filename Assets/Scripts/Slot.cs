@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
-public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     
-    [HideInInspector] public UnityEvent<Slot> PointerEnterEvent;
-    [HideInInspector] public UnityEvent<Slot> PointerExitEvent;
+    public UnityEvent<Slot> PointerEnterEvent;
+    public UnityEvent<Slot> PointerExitEvent;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,15 +19,22 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         
     }
 
-    public void OnPointEnter(PointerEventData pointerEventData)
+    public void OnDrop(PointerEventData eventData)
     {
-        pointerEventData.Invoke(this);
+        Debug.Log("Dropped on " + name + " GameObject");
+        GameObject dropped = eventData.pointerDrag;
+        PlayerCard playerCard = dropped.GetComponent<PlayerCard>();
+        playerCard.parentAfterDrag = transform;
+    }
+    public void OnPointerEnter(PointerEventData pointerEventData)
+    {
+        PointerEnterEvent.Invoke(this);
         Debug.Log("Cursor Entering " + name + " GameObject");
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        pointerEventData.Invoke(this);
+        PointerExitEvent.Invoke(this);
         Debug.Log("Cursor Entering " + name + " GameObject");
     }
 }

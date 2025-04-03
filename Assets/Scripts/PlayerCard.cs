@@ -4,14 +4,17 @@ using UnityEngine.Events;
 using System.Collections;
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using Unity.VisualScripting;
+using TMPro;
 
-public class PlayerCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
+public class PlayerCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler //,IPointerEnterHandler, IPointerExitHandler
 {
 
-    public bool isDragging;
-    public GameObject currentSlot;
-    public GameObject slotOver;
-
+    private float tiltSpeed = .02f;
+    public UnityEngine.UI.Image image;
+    public TMP_Text playerName;
+    public Transform parentAfterDrag;
     //public Image slotImage;
 
     public UnityEvent<PlayerCard> DragEnterEvent;
@@ -20,66 +23,36 @@ public class PlayerCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     public UnityEvent<PlayerCard> PointerEnterEvent;
     public UnityEvent<PlayerCard> PointerExitEvent;
 
+    //transform.rotation *= new Quaternion(0f, 0f, 1f, MouseVel().x*tiltSpeed);
+
     void Start()
     {
-        currentSlot = gameObject.transform.parent.gameObject;
-    }
-
-
-    void Update()
-    {
-        
-        if (isDragging)
-        {
-            transform.position = Input.mousePosition;
-        }else
-        {
-            if (slotOver != null && slotOver.transform.childCount == 0)
-            {
-                currentSlot = slotOver;
-                transform.position = slotOver.transform.position;
-            }else
-            {
-                //this.transform.SetParent(slotOver.transform);
-                transform.position = currentSlot.transform.position;
-            }
-            
-        }
+        image = GetComponent<UnityEngine.UI.Image>();
+        playerName = GetComponentInChildren<TMP_Text>();
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
+        Debug.Log("Begin Drag");
         BeginDragEvent.Invoke(this);
-        Debug.Log("Begin drag");
-        isDragging = true;
-
+        parentAfterDrag = transform.parent;
+        transform.SetParent(transform.root);
+        transform.SetAsLastSibling();
+        image.raycastTarget = false;
+        playerName.raycastTarget = false;
     }
-
     public void OnDrag(PointerEventData eventData)
     {
-        //Debug.Log("Dragging");
-        
+        Debug.Log("Dragging");
+        transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        isDragging = false;
-        EndDragEvent.Invoke(this);
-        //Debug.Log("End Drag");
-    }
-
-    public void OnPointerEnter(PointerEventData pointerEventData)
-    {
-        PointerEnterEvent.Invoke(this);
-        Debug.Log("Cursor Entering " + name + " GameObject");
-    }
-    public void OnPointerExit(PointerEventData pointerEventData)
-    {
-        PointerExitEvent.Invoke(this);
-        Debug.Log("Cursor Exiting " + name + " GameObject");
-    }
-
-    public void SetSlotOver(GameObject slot)
-    {
-        slotOver = slot; 
+        Debug.Log("End Drag");
+        transform.SetParent(parentAfterDrag);
+        //Set position to 0,0,0 relative to parent
+        transform.localPosition = Vector3.zero;
+        image.raycastTarget = true;
+        playerName.raycastTarget = true;
     }
 }

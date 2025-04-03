@@ -12,10 +12,10 @@ public class WindowManager : MonoBehaviour
     public TMP_Text headerText;
     public List<TMP_Text> containerElements;
     private GameObject[] slotsGameObjects;
-    public Slot[] slots;
+    public List<Slot> slots = new List<Slot>();
     public PlayerCard[] playerCards;
     public PlayerCard selectedPlayerCard;
-    public PlayerCard hoveredPlayerCard;
+    public Slot hoveredPlayerCard;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,7 +24,12 @@ public class WindowManager : MonoBehaviour
 
         containerElements = new List<TMP_Text>(textContainer.transform.GetChild(1).GetComponentsInChildren<TMP_Text>());
 
-        slots = GameObject.FindGameObjectsWithTag("Slot");
+        slotsGameObjects = GameObject.FindGameObjectsWithTag("Slot");
+
+        foreach(GameObject slot in slotsGameObjects)
+        {
+            slots.Add(slot.GetComponent<Slot>());
+        }
 
 
         playerCards = GetComponentsInChildren<PlayerCard>();
@@ -32,42 +37,20 @@ public class WindowManager : MonoBehaviour
         foreach (PlayerCard playerCard in playerCards)
         {
             Debug.Log("Adding Listeners");
-            playerCard.BeginDragEvent.AddListener(BeginDrag);
-            playerCard.EndDragEvent.AddListener(EndDrag);
+            //playerCard.BeginDragEvent.AddListener(BeginDrag);
+            //playerCard.EndDragEvent.AddListener(EndDrag);
             
             
         }
 
         foreach (Slot slot in slots)
         {
-            slot.PointerEnterEvent.AddListener(PlayerCardPointerEnter);
-            slot.PointerExitEvent.AddListener(PlayerCardPointerExit);
+            //slot.PointerEnterEvent.AddListener(PlayerCardPointerEnter);
+            //slot.PointerExitEvent.AddListener(PlayerCardPointerExit);
         }
     
     }
 
-    void BeginDrag(PlayerCard playerCard)
-    {
-        selectedPlayerCard = playerCard;
-        Debug.Log("BeginDrag working");
-    }
-
-    void EndDrag(PlayerCard playerCard)
-    {
-        selectedPlayerCard = null;
-    }
-
-    void PlayerCardPointerEnter(PlayerCard playerCard)
-    {
-        //hoveredPlayerCard = playerCard;
-        selectedPlayerCard.SetSlotOver(playerCard.gameObject);
-    }
-
-    void PlayerCardPointerExit(PlayerCard playerCard)
-    {
-        hoveredPlayerCard = null;
-        selectedPlayerCard.SetSlotOver(null);
-    }
 
     // Update is called once per frame
     void Update()
