@@ -347,6 +347,13 @@ MonoBehaviour:
   PointerExitEvent:
     m_PersistentCalls:
       m_Calls: []
+  isOccupied: 0
+  isPositionLockedSlot: 1
+  slotPosition: Keeper
+  playerInPlayerCardSlot: {fileID: 0}
+  playerCard: {fileID: 0}
+  positionText: {fileID: 0}
+  ratingText: {fileID: 0}
 --- !u!114 &263333415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,6 +448,13 @@ MonoBehaviour:
   PointerExitEvent:
     m_PersistentCalls:
       m_Calls: []
+  isOccupied: 0
+  isPositionLockedSlot: 1
+  slotPosition: Seeker
+  playerInPlayerCardSlot: {fileID: 0}
+  playerCard: {fileID: 0}
+  positionText: {fileID: 0}
+  ratingText: {fileID: 0}
 --- !u!114 &341124163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1590,8 +1604,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -233.29382, y: -19.639404}
-  m_SizeDelta: {x: 223.0532, y: 967.3008}
+  m_AnchoredPosition: {x: -10.1362, y: -19.639404}
+  m_SizeDelta: {x: 669.3682, y: 967.3008}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &842432811
 MonoBehaviour:
@@ -1613,8 +1627,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 220, y: 100}
-  m_Spacing: {x: 0, y: 0}
+  m_CellSize: {x: 650, y: 100}
+  m_Spacing: {x: 400, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &943862238
@@ -1881,6 +1895,13 @@ MonoBehaviour:
   PointerExitEvent:
     m_PersistentCalls:
       m_Calls: []
+  isOccupied: 0
+  isPositionLockedSlot: 1
+  slotPosition: Beater
+  playerInPlayerCardSlot: {fileID: 0}
+  playerCard: {fileID: 0}
+  positionText: {fileID: 0}
+  ratingText: {fileID: 0}
 --- !u!114 &1102782520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2289,6 +2310,13 @@ MonoBehaviour:
   PointerExitEvent:
     m_PersistentCalls:
       m_Calls: []
+  isOccupied: 0
+  isPositionLockedSlot: 1
+  slotPosition: Chaser
+  playerInPlayerCardSlot: {fileID: 0}
+  playerCard: {fileID: 0}
+  positionText: {fileID: 0}
+  ratingText: {fileID: 0}
 --- !u!114 &1461271962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2794,6 +2822,9 @@ MonoBehaviour:
   textContainer: {fileID: 0}
   headerText: {fileID: 0}
   containerElements: []
+  playerPositions: []
+  playerRatings: []
+  slotsGameObjects: []
   playerCards: []
   selectedPlayerCard: {fileID: 0}
   hoveredPlayerCard: {fileID: 0}
@@ -2942,6 +2973,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1774151520}
+  - component: {fileID: 1774151521}
   m_Layer: 5
   m_Name: Lineup Page
   m_TagString: Untagged
@@ -2970,6 +3002,31 @@ RectTransform:
   m_AnchoredPosition: {x: 160, y: 0}
   m_SizeDelta: {x: -320, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1774151521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774151519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e23a5c2bc727bcd42991f1952d9bddd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamDatabaseManager: {fileID: 0}
+  chaserSlots:
+  - {fileID: 1461271961}
+  - {fileID: 1905511478}
+  - {fileID: 1923532158}
+  beaterSlots:
+  - {fileID: 2048481674}
+  - {fileID: 1102782519}
+  keeperSlots:
+  - {fileID: 263333414}
+  seekerSlots:
+  - {fileID: 341124162}
+  startingLineup: []
 --- !u!1 &1781489465
 GameObject:
   m_ObjectHideFlags: 0
@@ -3240,6 +3297,13 @@ MonoBehaviour:
   PointerExitEvent:
     m_PersistentCalls:
       m_Calls: []
+  isOccupied: 0
+  isPositionLockedSlot: 1
+  slotPosition: Chaser
+  playerInPlayerCardSlot: {fileID: 0}
+  playerCard: {fileID: 0}
+  positionText: {fileID: 0}
+  ratingText: {fileID: 0}
 --- !u!114 &1905511479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3334,6 +3398,13 @@ MonoBehaviour:
   PointerExitEvent:
     m_PersistentCalls:
       m_Calls: []
+  isOccupied: 0
+  isPositionLockedSlot: 1
+  slotPosition: Chaser
+  playerInPlayerCardSlot: {fileID: 0}
+  playerCard: {fileID: 0}
+  positionText: {fileID: 0}
+  ratingText: {fileID: 0}
 --- !u!114 &1923532159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3466,6 +3537,8 @@ MonoBehaviour:
   playerDataBasePath: /PlayerDataBase.json
   teamDataBasePath: /TeamDataBase.json
   jsonFile: {fileID: 0}
+  firstNamesFile: {fileID: 4900000, guid: c0cc436ba289d6e4abc5798d0123dd93, type: 3}
+  lastNamesFile: {fileID: 4900000, guid: e15b1b8f56e836541a9ffaa20aef3b67, type: 3}
 --- !u!4 &1959396299
 Transform:
   m_ObjectHideFlags: 0
@@ -3741,6 +3814,13 @@ MonoBehaviour:
   PointerExitEvent:
     m_PersistentCalls:
       m_Calls: []
+  isOccupied: 0
+  isPositionLockedSlot: 1
+  slotPosition: Beater
+  playerInPlayerCardSlot: {fileID: 0}
+  playerCard: {fileID: 0}
+  positionText: {fileID: 0}
+  ratingText: {fileID: 0}
 --- !u!114 &2048481675
 MonoBehaviour:
   m_ObjectHideFlags: 0

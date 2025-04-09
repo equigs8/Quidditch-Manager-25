@@ -21,6 +21,7 @@ public class PlayerDatabaseManager : MonoBehaviour
 
             foreach (Player player in playerList)
             {
+                player.CalculateRating();
                 Debug.Log(player.firstName);
             }
             Debug.Log("Loaded playerList");

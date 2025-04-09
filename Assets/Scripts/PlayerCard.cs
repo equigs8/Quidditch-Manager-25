@@ -28,6 +28,9 @@ public class PlayerCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     private Vector3 movementDelta;
     private float rotationSpeed = 20f;
     private float rotationAmount = 20f;
+    public Player playerData;
+    
+    public Vector3 spacingOffset;
 
     //transform.rotation *= new Quaternion(0f, 0f, 1f, MouseVel().x*tiltSpeed);
 
@@ -35,6 +38,7 @@ public class PlayerCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         image = GetComponent<UnityEngine.UI.Image>();
         playerName = GetComponentInChildren<TMP_Text>();
+        spacingOffset = new Vector3(-204f, 0f, 0f);
     }
 
     void Update()
@@ -81,6 +85,7 @@ public class PlayerCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         transform.SetParent(parentAfterDrag);
         //Set position to 0,0,0 relative to parent
         transform.localPosition = Vector3.zero;
+        transform.localPosition = spacingOffset;
         image.raycastTarget = true;
         playerName.raycastTarget = true;
         isDragging = false;

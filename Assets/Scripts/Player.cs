@@ -39,6 +39,7 @@ public class Player
     public int topSpeed;
     public int toughness;
 
+    public int rating;
 
 
     public void SetFirstName(string name)
@@ -92,5 +93,32 @@ public class Player
         return positionString;
     }
 
+    internal string PositionToString()
+    {
+        if (position == Position.Chaser)
+        {
+            return "Chaser";
+        }
+        else if (position == Position.Beater)
+        {
+            return "Beater";
+        }
+        else if (position == Position.Keeper)
+        {
+            return "Keeper";
+        }
+        else if (position == Position.Seeker)
+        {
+            return "Seeker";
+        }
+        else
+        {
+            return "Unknown";
+        }
+    }
+    public void CalculateRating()
+    {
+        rating = (stamina + armPower + vision + reactions + topSpeed + toughness) / 6;
+    }
     
 }
