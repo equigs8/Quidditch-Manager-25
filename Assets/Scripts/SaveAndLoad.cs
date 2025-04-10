@@ -9,6 +9,8 @@ using UnityEngine.UIElements;
 [System.Serializable]
 public class SaveAndLoad : MonoBehaviour
 {
+    public TextAsset teamFileAsString;
+    public TextAsset playerFileAsString;
     public string playerDataBasePath;
     public string teamDataBasePath;
     public TextAsset jsonFile;
@@ -21,8 +23,8 @@ public class SaveAndLoad : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerDataBasePath = Application.persistentDataPath + playerDataBasePath;
-        teamDataBasePath = Application.persistentDataPath + teamDataBasePath;
+        //playerDataBasePath = Application.persistentDataPath + playerDataBasePath;
+        //teamDataBasePath = Application.persistentDataPath + teamDataBasePath;
 
         
         //AddDefaultTeamSaveFile();
@@ -254,6 +256,28 @@ public class SaveAndLoad : MonoBehaviour
                 //Debug.Log("Found Player, " + player.firstName);
             }
             return playersList;
+        }else if(playerFileAsString != null)
+        {
+            if (PlayerPrefs.HasKey("playerDataSave"))
+            {
+                string json = PlayerPrefs.GetString("playerDataSave");
+                if (!string.IsNullOrEmpty(json))
+                {
+                    Debug.Log("Loading saved player data from PlayerPrefs.");
+                    Wrapper<Player> wrapper = JsonUtility.FromJson<Wrapper<Player>>(json);
+                    return wrapper.items;
+                }
+            }
+            if (playerFileAsString != null)
+            {
+                Debug.Log("Loading default player data from TextAsset.");
+                string json = playerFileAsString.text;
+                Wrapper<Player> wrapper = JsonUtility.FromJson<Wrapper<Player>>(json);
+                return wrapper.items;
+            }
+
+            Debug.LogWarning("No saved player data found and no default player data TextAsset assigned.");
+            return new List<Player>();
         }
         return null;
     }
@@ -271,6 +295,31 @@ public class SaveAndLoad : MonoBehaviour
             }
 
             return teamsList;
+        }
+        else if (teamFileAsString != null)
+        {
+            if (PlayerPrefs.HasKey("teamDataSave"))
+            {
+                string json = PlayerPrefs.GetString("teamDataSave");
+                if (!string.IsNullOrEmpty(json))
+                {
+                    Debug.Log("Loading saved team data from PlayerPrefs.");
+                    Wrapper<Team> wrapper = JsonUtility.FromJson<Wrapper<Team>>(json);
+                    return wrapper.items;
+                }
+            }
+
+            // Fallback: Load default data
+            if (teamFileAsString != null)
+            {
+                Debug.Log("Loading default team data from TextAsset.");
+                string json = teamFileAsString.text;
+                Wrapper<Team> wrapper = JsonUtility.FromJson<Wrapper<Team>>(json);
+                return wrapper.items;
+            }
+
+            Debug.LogWarning("No saved team data found and no default team data TextAsset assigned.");
+            return new List<Team>(); // Return empty list or handle error
         }
         return null;
     }

@@ -11,13 +11,14 @@ public class Team
     public Lineup lineup;
 
     public int wins = 0;
-    public int loses = 0;
+    public int losses = 0;
 
     [Header("Players")]
     public List<Player> players;
     public bool isPlayerTeam = false;
     public List<Player> startingLineup;
     GameManager gameManager;
+    public int points;
 
 
     void Start()
@@ -31,6 +32,7 @@ public class Team
         Debug.LogWarning("WinGame");
        
         wins += 1;
+        points += 3;
         
     }
 
@@ -38,7 +40,7 @@ public class Team
     {
         Debug.LogWarning("LoseGame");
         
-        loses += 1;
+        losses += 1;
         
     }
 
@@ -70,4 +72,24 @@ public class Team
         }
         
     }
+
+    internal string GetTeamRecordString()
+    {
+        return wins + " - " + losses;
+    }
+
+    /*
+     public override bool Equals(object obj)
+    {
+        if (obj.GetType() != typeof(Match))
+        {
+            return false;
+        }
+        else
+        {
+            Match comparingMatch = (Match)obj;
+            return comparingMatch.matchNumber == matchNumber && comparingMatch.weekNumber == weekNumber;
+        }
+    }
+    */
 }

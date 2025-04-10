@@ -13,7 +13,17 @@ public class Match
 
     public string matchResult;
 
-  
+    public bool played = false;
+
+    public string record;
+    public Team winner;
+    public Team loser;
+
+
+    internal bool HasBeenPlayed()
+    {
+        return played;
+    }
 
     internal int PlayMatch()
     {
@@ -26,24 +36,35 @@ public class Match
 
         if (gameResult > 0)
         {
-            matchResult = homeTeam.teamName + "Wins";
+            matchResult = homeTeam.teamName + " Wins";
+            winner = homeTeam;
+            loser = awayTeam;
             
         }
         else if (gameResult < 0)
         {
-            matchResult = awayTeam.teamName + "Wins";
+            matchResult = awayTeam.teamName + " Wins";
+            winner = awayTeam;
+            loser = homeTeam;
             
         }  
         else
         {
             this.PlayMatch();
         }
-        Debug.LogWarning(homeTeam.teamName + " vs " + awayTeam.teamName + "\n" + homeTeam.teamRating + " vs " + awayTeam.teamRating + "\n" + randomNumber + "\n" + gameResult);
+        //Debug.LogWarning(homeTeam.teamName + " vs " + awayTeam.teamName + "\n" + homeTeam.teamRating + " vs " + awayTeam.teamRating + "\n" + randomNumber + "\n" + gameResult);
         return gameResult;
     }
 
+    public Team GetWinner()
+    {
+        return winner;
+    }
 
-        
+    public string GetMatchResult()
+    {
+        return matchResult;
+    }
 
     int ToNeg(int value)
     {
@@ -52,5 +73,6 @@ public class Match
         else
             return value;
     }
-        
+
+   
 }

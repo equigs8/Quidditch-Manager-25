@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class ScheduleManager : MonoBehaviour
 {
+    public int matchNumber = 0;
     public Dictionary<string, Dictionary<string, Match>> GenerateSchedule(List<Team> teams)
     {
         Dictionary<string, Dictionary<string, Match>> schedule = new Dictionary<string, Dictionary<string, Match>>();
         
-        int weeks = 12;
+        int weeks = 14;
         int matchesPerWeek = 4;
         for (int week = 0; week < weeks; week++)
         {
@@ -25,6 +26,9 @@ public class ScheduleManager : MonoBehaviour
                     Match newMatch = new Match();
                     newMatch.homeTeam = homeTeam;
                     newMatch.awayTeam = awayTeam;
+                    newMatch.weekNumber = week;
+                    newMatch.matchNumber += 1;
+                    matchNumber = newMatch.matchNumber;
                     matchWeek.Add("Match" + match, newMatch);
                 }
             }
@@ -40,7 +44,7 @@ public class ScheduleManager : MonoBehaviour
                 scheduleString +=  week.Key + " " + match.Key + " " + match.Value.homeTeam.teamName + " vs " + match.Value.awayTeam.teamName + "\n";
             }
         }
-        Debug.LogWarning(scheduleString);
+        //Debug.LogWarning(scheduleString);
         return schedule;
     }
 

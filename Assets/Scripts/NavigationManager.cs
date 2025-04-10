@@ -30,4 +30,11 @@ public class NavigationManager : MonoBehaviour
         }
     }
 
+    public void ResetResultsPopup()
+    {
+        
+        NextMatchMenuPage nextMatchMenuPage = activePage.GetComponent<NextMatchMenuPage>();
+        nextMatchMenuPage.PrepareForNextMatch();
+        
+    }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,7 +11,9 @@ public class GameManager : MonoBehaviour
     public TeamDatabaseManager teamDatabaseManager;
 
     public ScheduleManager scheduleManager;
-    private bool scheduleGenerated = false;
+    public NavigationManager navigationManager;
+    public LeagueManager leagueManager;
+    public bool scheduleGenerated = false;
 
     public int week = 0;
 
@@ -23,6 +26,8 @@ public class GameManager : MonoBehaviour
     {
         teamDatabaseManager = GameObject.Find("TeamDatabase").GetComponent<TeamDatabaseManager>();
         scheduleManager = GameObject.Find("ScheduleManager").GetComponent<ScheduleManager>();
+        navigationManager = GameObject.Find("NavigationManager").GetComponent<NavigationManager>();
+        leagueManager = GameObject.Find("LeagueManager").GetComponent<LeagueManager>();
 
 
         
@@ -52,7 +57,7 @@ public class GameManager : MonoBehaviour
         foreach (KeyValuePair<string, Match> match in schedule["Week" + week])
         {
            
-            Debug.Log("Match " + match.Value.homeTeam.teamName + " vs " + match.Value.awayTeam.teamName);
+            //Debug.Log("Match " + match.Value.homeTeam.teamName + " vs " + match.Value.awayTeam.teamName);
             int matchResult = match.Value.PlayMatch();
             if (matchResult > 0)
             {
@@ -64,11 +69,71 @@ public class GameManager : MonoBehaviour
                 match.Value.homeTeam.LoseGame();
                 match.Value.awayTeam.WinGame();
             }
-            Debug.LogWarning(match.Value.matchResult);
+            match.Value.played = true;
+            //Debug.LogWarning(match.Value.matchResult);
         }
 
-        week++;
         
+        navigationManager.ResetResultsPopup();
     }
 
+    public void NextWeek()
+    {
+        navigationManager.ResetResultsPopup();
+        week += 1;
+    }
+
+    public Match GetNextPlayerMatch()
+    {
+        if (scheduleGenerated)
+        {
+            foreach (KeyValuePair<string, Match> match in schedule["Week" + week])
+            {
+                if (match.Value.homeTeam.teamName == userTeam.teamName || match.Value.awayTeam.teamName == userTeam.teamName)
+                {
+                    return match.Value;
+                }
+            }
+            return null;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public int GetCurrentWeek()
+    {
+        return week;
+    }
+
+
+    internal Match GetMatchByWeek(int inputWeek, Team userTeam)
+    {
+        foreach (KeyValuePair<string, Match> match in schedule["Week" + inputWeek])
+        {
+            if (match.Value.homeTeam.teamName == userTeam.teamName || match.Value.awayTeam.teamName == userTeam.teamName)
+            {
+                return match.Value;
+            }
+        }
+        return null;
+    }
+
+    internal Match GetLastMatch(Team team)
+    {
+        foreach (KeyValuePair<string, Match> match in schedule["Week" + (week - 1)])
+        {
+            if (match.Value.homeTeam.teamName == team.teamName || match.Value.awayTeam.teamName == team.teamName)
+            {
+                return match.Value;
+            }
+        }
+        return null;
+    }
+
+    internal List<Team> GetLeagueTable()
+    {
+        return leagueManager.leagueTeams;
+    }
 }

@@ -1,11 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
-using System.Collections;
-using Microsoft.Unity.VisualStudio.Editor;
-using UnityEngine.UI;
-using UnityEngine.InputSystem;
-using Unity.VisualScripting;
 using TMPro;
 
 public class PlayerCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler //,IPointerEnterHandler, IPointerExitHandler
