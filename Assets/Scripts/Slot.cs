@@ -2,12 +2,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using TMPro;
+using System.Collections.Generic;
 
 public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     
     public UnityEvent<Slot> PointerEnterEvent;
     public UnityEvent<Slot> PointerExitEvent;
+    public UnityEvent OnDropEvent;
 
     public bool isOccupied;
     public bool isPositionLockedSlot = false;
@@ -37,10 +39,13 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
 
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.LogWarning("OnDrop " + eventData.pointerDrag.GetComponent<PlayerCard>().playerData.firstName + " is Player");
+        ClearPlayerCardInSlots();
+        //Debug.LogWarning("OnDrop " + eventData.pointerDrag.GetComponent<PlayerCard>().playerData.firstName + " is Player");
         Debug.Log("Dropped on " + name + " GameObject");
         PlayerCard draggedCard = eventData.pointerDrag.GetComponent<PlayerCard>();
+        //Debug.LogWarning(draggedCard);
         playerInPlayerCardSlot = draggedCard;
+        playerCard = eventData.pointerDrag.GetComponent<PlayerCard>();
         if (isPositionLockedSlot)
         {
             
@@ -52,7 +57,14 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
                     PlayerCard playerCard = dropped.GetComponent<PlayerCard>();
                     playerCard.parentAfterDrag = transform;
                     playerCard.spacingOffset = Vector3.zero;
+                    OnDropEvent.Invoke();
                 } 
+                
+            }
+            else
+            {
+                playerCard = null;
+                OnDropEvent.Invoke();
             }
         }else if (!isPositionLockedSlot)
         {
@@ -63,6 +75,8 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
 
             positionText.text = playerCard.playerData.PositionToString();
             ratingText.text = playerCard.playerData.rating.ToString();
+
+            
         }
         
 
@@ -84,5 +98,15 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
     {
         PointerExitEvent.Invoke(this);
         Debug.Log("Cursor Entering " + name + " GameObject");
+    }
+
+    void ClearPlayerCardInSlots()
+    {
+        List<Slot> slots = new List<Slot>(gameObject.transform.parent.GetComponentsInChildren<Slot>());
+        foreach (Slot slot in slots)
+        {
+            slot.playerCard = null;
+            slot.playerInPlayerCardSlot = null;
+        }
     }
 }

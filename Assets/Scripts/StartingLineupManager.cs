@@ -25,10 +25,10 @@ public class StartingLineupManager : MonoBehaviour
     {
         CheckStartingLineupSize();
 
-        ChaserSlotCheck();
-        BeaterSlotCheck();
-        KeeperSlotCheck();
-        SeekerSlotCheck();
+        //ChaserSlotCheck();
+        //BeaterSlotCheck();
+        //KeeperSlotCheck();
+        //SeekerSlotCheck();
 
         
     }

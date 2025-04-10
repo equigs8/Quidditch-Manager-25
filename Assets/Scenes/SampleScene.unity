@@ -347,6 +347,9 @@ MonoBehaviour:
   PointerExitEvent:
     m_PersistentCalls:
       m_Calls: []
+  OnDropEvent:
+    m_PersistentCalls:
+      m_Calls: []
   isOccupied: 0
   isPositionLockedSlot: 1
   slotPosition: Keeper
@@ -446,6 +449,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   PointerExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDropEvent:
     m_PersistentCalls:
       m_Calls: []
   isOccupied: 0
@@ -687,7 +693,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 390744285}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7cd277e64426e3b4d833242e17f427ed, type: 3}
   m_Name: 
@@ -738,7 +744,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 390744289}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 558816282}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: PlayNextWeeksGames
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &390744289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1127,6 +1145,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 558816281}
+  - component: {fileID: 558816282}
   - component: {fileID: 558816280}
   m_Layer: 0
   m_Name: GameManager
@@ -1162,6 +1181,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &558816282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558816279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 751880ee9f3896743b40df2c07c06361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userTeam:
+    teamName: 
+    teamRating: 0
+    lineup: {fileID: 0}
+    wins: 0
+    loses: 0
+    players: []
+    isPlayerTeam: 0
+    startingLineup: []
+  teamDatabaseManager: {fileID: 0}
+  scheduleManager: {fileID: 0}
+  week: 1
+  teamWinsEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  teamLosesEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &593215157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1895,6 +1944,9 @@ MonoBehaviour:
   PointerExitEvent:
     m_PersistentCalls:
       m_Calls: []
+  OnDropEvent:
+    m_PersistentCalls:
+      m_Calls: []
   isOccupied: 0
   isPositionLockedSlot: 1
   slotPosition: Beater
@@ -2308,6 +2360,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   PointerExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDropEvent:
     m_PersistentCalls:
       m_Calls: []
   isOccupied: 0
@@ -3297,6 +3352,9 @@ MonoBehaviour:
   PointerExitEvent:
     m_PersistentCalls:
       m_Calls: []
+  OnDropEvent:
+    m_PersistentCalls:
+      m_Calls: []
   isOccupied: 0
   isPositionLockedSlot: 1
   slotPosition: Chaser
@@ -3396,6 +3454,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   PointerExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDropEvent:
     m_PersistentCalls:
       m_Calls: []
   isOccupied: 0
@@ -3814,6 +3875,9 @@ MonoBehaviour:
   PointerExitEvent:
     m_PersistentCalls:
       m_Calls: []
+  OnDropEvent:
+    m_PersistentCalls:
+      m_Calls: []
   isOccupied: 0
   isPositionLockedSlot: 1
   slotPosition: Beater
@@ -3869,6 +3933,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2077368983}
   - component: {fileID: 2077368982}
+  - component: {fileID: 2077368984}
   m_Layer: 0
   m_Name: TeamDatabase
   m_TagString: Untagged
@@ -3909,6 +3974,126 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2077368984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077368981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b07b5683db785d4795b540a7dbff016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaser1:
+    firstName: 
+    lasteName: 
+    gender: 
+    position: 0
+    currentTeam: Free Agent
+    pastTeams: []
+    stamina: 0
+    armPower: 0
+    vision: 0
+    reactions: 0
+    topSpeed: 0
+    toughness: 0
+    rating: 0
+  chaser2:
+    firstName: 
+    lasteName: 
+    gender: 
+    position: 0
+    currentTeam: Free Agent
+    pastTeams: []
+    stamina: 0
+    armPower: 0
+    vision: 0
+    reactions: 0
+    topSpeed: 0
+    toughness: 0
+    rating: 0
+  chaser3:
+    firstName: 
+    lasteName: 
+    gender: 
+    position: 0
+    currentTeam: Free Agent
+    pastTeams: []
+    stamina: 0
+    armPower: 0
+    vision: 0
+    reactions: 0
+    topSpeed: 0
+    toughness: 0
+    rating: 0
+  beater1:
+    firstName: 
+    lasteName: 
+    gender: 
+    position: 0
+    currentTeam: Free Agent
+    pastTeams: []
+    stamina: 0
+    armPower: 0
+    vision: 0
+    reactions: 0
+    topSpeed: 0
+    toughness: 0
+    rating: 0
+  beater2:
+    firstName: 
+    lasteName: 
+    gender: 
+    position: 0
+    currentTeam: Free Agent
+    pastTeams: []
+    stamina: 0
+    armPower: 0
+    vision: 0
+    reactions: 0
+    topSpeed: 0
+    toughness: 0
+    rating: 0
+  keeper1:
+    firstName: 
+    lasteName: 
+    gender: 
+    position: 0
+    currentTeam: Free Agent
+    pastTeams: []
+    stamina: 0
+    armPower: 0
+    vision: 0
+    reactions: 0
+    topSpeed: 0
+    toughness: 0
+    rating: 0
+  seeker1:
+    firstName: 
+    lasteName: 
+    gender: 
+    position: 0
+    currentTeam: Free Agent
+    pastTeams: []
+    stamina: 0
+    armPower: 0
+    vision: 0
+    reactions: 0
+    topSpeed: 0
+    toughness: 0
+    rating: 0
+  chaser1Slot: {fileID: 1461271961}
+  chaser2Slot: {fileID: 1905511478}
+  chaser3Slot: {fileID: 1923532158}
+  beater1Slot: {fileID: 2048481674}
+  beater2Slot: {fileID: 1102782519}
+  keeper1Slot: {fileID: 263333414}
+  seeker1Slot: {fileID: 341124162}
+  teamDatabaseManager: {fileID: 0}
+  gameManager: {fileID: 0}
+  startingLineup: []
 --- !u!1001 &4001353324124453200
 PrefabInstance:
   m_ObjectHideFlags: 0

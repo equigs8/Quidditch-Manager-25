@@ -82,6 +82,7 @@ public class PlayerCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     public void OnEndDrag(PointerEventData eventData)
     {
         //Debug.Log("End Drag");
+        EndDragEvent.Invoke(this);
         transform.SetParent(parentAfterDrag);
         //Set position to 0,0,0 relative to parent
         transform.localPosition = Vector3.zero;

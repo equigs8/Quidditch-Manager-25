@@ -38,10 +38,19 @@ public class TeamDatabaseManager : MonoBehaviour
         if (teamDataLoaded && !playersLoadedIntoTeam)
         { 
             LoadPlayersIntoTeams();
+            GenerateTeamRatings();
         }
     }
 
-    internal Team GetPlayerTeam()
+    private void GenerateTeamRatings()
+    {
+        foreach (Team team in teams)
+        {
+            team.GenerateTeamRating();
+        }
+    }
+
+    public Team GetPlayerTeam()
     {
 
         foreach (Team team in teams)
@@ -56,17 +65,17 @@ public class TeamDatabaseManager : MonoBehaviour
 
     private void LoadPlayersIntoTeams()
     {
-        Debug.Log("LoadPlayersInToTeams Started");
+        //Debug.Log("LoadPlayersInToTeams Started");
         List<Player> playerList = playerDatabase.GetPlayerList();
         foreach (Player player in playerList)
         {
-            Debug.Log("Player Name = " + player.firstName);
+            //Debug.Log("Player Name = " + player.firstName);
             string playerTeamName = player.GetCurrentTeam();
-            Debug.Log("Players team name = " + playerTeamName);
+            //Debug.Log("Players team name = " + playerTeamName);
             foreach (Team team in teams)
             {
-                Debug.Log("Team Name = " + team.teamName);
-                Debug.Log("Player team name = Team Name " + playerTeamName == team.teamName);
+                //Debug.Log("Team Name = " + team.teamName);
+                //Debug.Log("Player team name = Team Name " + playerTeamName == team.teamName);
                 if (playerTeamName == team.teamName)
                 {
                     team.AddPlayer(player);
@@ -131,8 +140,15 @@ public class TeamDatabaseManager : MonoBehaviour
         }
     }
 
-    public void UpdateStartingLineup()
+    public void UpdateStartingLineup(List<Player> startingLineup, Team teamToUpdate)
     {
-        throw new NotImplementedException();
+        foreach (Team team in teams)
+        {
+            Debug.LogWarning(team.teamName + " == " + teamToUpdate.teamName);
+            if (team.teamName == teamToUpdate.teamName)
+            {
+                team.startingLineup = startingLineup;
+            }
+        }
     }
 }
